@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DeepSeek Agent Lab</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; background: #f5f7fb; color: #172033; }
+    body { max-width: 860px; margin: 0 auto; padding: 32px 16px; }
+    main { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 8px 30px #22335512; }
+    #messages { min-height: 300px; max-height: 55vh; overflow-y: auto; }
+    .message { margin: 12px 0; padding: 12px 14px; border-radius: 12px; white-space: pre-wrap; }
+    .user { background: #e9f1ff; margin-left: 15%; }
+    .agent { background: #f1f3f7; margin-right: 15%; }
+    .sources { color: #526177; font-size: 13px; }
+    form { display: flex; gap: 8px; margin-top: 16px; }
+    textarea { flex: 1; resize: vertical; min-height: 54px; padding: 10px; }
+    button { border: 0; border-radius: 8px; padding: 10px 16px; background: #1769e0; color: white; cursor: pointer; }
+    button.secondary { background: #687386; }
+    #approval { display: none; padding: 12px; border: 1px solid #edb95e; border-radius: 10px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>DeepSeek 企业智能客服 Agent</h1>
+  <p>Fake 模式无需 API Key。试试“年假怎么申请”“查询订单1002”“为订单1002申请退款”。</p>
+  <section id="messages" aria-live="polite"></section>
+  <section id="approval">
+    <p id="approvalText"></p>
+    <button type="button" onclick="approve(true)">批准</button>
+    <button type="button" class="secondary" onclick="approve(false)">拒绝</button>
+  </section>
+  <form id="chatForm">
+    <textarea id="message" required placeholder="输入问题"></textarea>
+    <button type="submit">发送</button>
+    <button type="button" class="secondary" id="cancel">取消</button>
+  </form>
+</main>
+<script>
+  // 教学版前端只依赖浏览器原生 API，便于聚焦 Agent。
+  const threadId = crypto.randomUUID();
+  const userId = "demo-user";
+  const messages = document.querySelector("#messages");
+  const approval = document.querySelector("#approval");
+  let controller = null;
+
+  function addMessage(text, role, sources = []) {
+    const item = document.createElement("div");
+    item.className = `message ${role}`;
+    item.textContent = text;
+    addSources(item, sources);
+    messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
+    return item;
+  }
+
+  function addSources(item, sources) {
+    if (sources.length && !item.querySelector(".sources")) {
+      const source = document.createElement("div");
+      source.className = "sources";
+      source.textContent = `来源：${sources.join("、")}`;
+      item.appendChild(source);
+    }
+  }
+
+  function renderResult(result) {
+    if (result.status === "pending_approval") {
+      approval.style.display = "block";
+      document.querySelector("#approvalText").textContent = result.pending_action.description;
+      return;
+    }
+    addMessage(result.answer, "agent", result.citations || []);
+  }
+
+  document.querySelector("#chatForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const input = document.querySelector("#message");
+    const text = input.value.trim();
+    if (!text) return;
+    addMessage(text, "user");
+    input.value = "";
+    controller = new AbortController();
+    try {
+      const response = await fetch("/api/v1/chat/stream", {
+        method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({message: text, user_id: userId, thread_id: threadId}),
+        signal: controller.signal
+      });
+      if (!response.ok || !response.body) throw new Error(`HTTP ${response.status}`);
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let agentItem = null;
+      let finalResult = null;
+      while (true) {
+        const {value, done} = await reader.read();
+        buffer += decoder.decode(value || new Uint8Array(), {stream: !done});
+        const blocks = buffer.split("\n\n");
+        buffer = blocks.pop();
+        for (const block of blocks) {
+          const eventName = block.match(/^event: (.+)$/m)?.[1];
+          const data = block.match(/^data: (.+)$/m)?.[1];
+          if (!data) continue;
+          if (eventName === "token") {
+            agentItem ||= addMessage("", "agent");
+            agentItem.textContent += JSON.parse(data).text;
+          } else if (eventName === "done") {
+            finalResult = JSON.parse(data);
+          }
+        }
+        if (done) break;
+      }
+      if (finalResult?.status === "pending_approval") {
+        renderResult(finalResult);
+      } else if (agentItem && finalResult) {
+        addSources(agentItem, finalResult.citations || []);
+      } else if (finalResult) {
+        renderResult(finalResult);
+      }
+    } catch (error) {
+      addMessage(error.name === "AbortError" ? "请求已取消" : `请求失败：${error}`, "agent");
+    }
+  });
+
+  document.querySelector("#cancel").addEventListener("click", async () => {
+    controller?.abort();
+    await fetch("/api/v1/cancel", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({thread_id: threadId})});
+  });
+
+  async function approve(approved) {
+    const response = await fetch("/api/v1/approve", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({thread_id: threadId, user_id: userId, approved})});
+    approval.style.display = "none";
+    renderResult(await response.json());
+  }
+</script>
+</body>
+</html>
