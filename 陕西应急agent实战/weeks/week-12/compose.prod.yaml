@@ -1,0 +1,33 @@
+name: shaanxi-highway-agent-prod
+
+# 生产 Compose 不启动数据库和 Redis，必须注入外部托管服务地址。
+services:
+  api:
+    image: ${API_IMAGE:-shaanxi-highway-agent-api:0.12.0}
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      MODEL_MODE: ${MODEL_MODE:-live}
+      CHECKPOINT_BACKEND: postgres
+      DATABASE_URL: ${DATABASE_URL:?请设置外部 PostgreSQL 地址}
+      REDIS_URL: ${REDIS_URL:?请设置外部 Redis 地址}
+      DEEPSEEK_BASE_URL: ${DEEPSEEK_BASE_URL:-https://api.deepseek.com}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:?请设置 DeepSeek API Key}
+      DEEPSEEK_MODEL: ${DEEPSEEK_MODEL:-deepseek-v4-flash}
+    command:
+      - /bin/sh
+      - -c
+      - alembic upgrade head && exec uvicorn highway_agent.main:app --app-dir src --host 0.0.0.0 --port 8000
+
+  web:
+    image: ${WEB_IMAGE:-shaanxi-highway-agent-web:0.12.0}
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - api

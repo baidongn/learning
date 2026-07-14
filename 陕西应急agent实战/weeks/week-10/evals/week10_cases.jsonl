@@ -1,0 +1,2 @@
+{"case_id":"UI-001","scenario":"default_demo","expected_text":"等待人工审批"}
+{"case_id":"UI-002","scenario":"api_error","expected_text":"请求失败"}

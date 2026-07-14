@@ -1,0 +1,5 @@
+{"id":"road-normal","endpoint":"/mock/roads/G65/sections/QINLING-01/status","expected_status":200}
+{"id":"road-missing","endpoint":"/mock/roads/G999/sections/UNKNOWN/status","expected_status":404}
+{"id":"weather-normal","endpoint":"/mock/weather/warnings?section_id=QINLING-01","expected_status":200}
+{"id":"resource-ambulance","endpoint":"/mock/resources/nearby?section_id=QINLING-01&resource_type=ambulance","expected_status":200}
+

@@ -1,0 +1,3 @@
+{"case_id":"HITL-001","decision":"approve","expected_status":"approved"}
+{"case_id":"HITL-002","decision":"reject","expected_status":"rejected","expected_actions":[]}
+{"case_id":"HITL-003","decision":null,"expected_status":"awaiting_approval","expected_actions":[]}

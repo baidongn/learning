@@ -1,0 +1,4 @@
+{"id":"critical-smoke","input":"秦岭隧道追尾，有烟，占用两条车道，无人伤亡","expected_type":"tunnel_smoke","expected_risk":"critical"}
+{"id":"missing-fields","input":"高速发生追尾","expected_missing":["casualties","lane_occupancy"]}
+{"id":"landslide","input":"连续降雨导致落石占用两条车道，无人伤亡","expected_type":"landslide"}
+

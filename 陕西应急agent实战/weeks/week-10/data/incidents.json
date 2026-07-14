@@ -1,0 +1,23 @@
+[
+  {"id":"INC-001","type":"collision","road":"G65","section":"QINLING-01","severity":"high","description":"隧道内两车追尾并出现烟雾"},
+  {"id":"INC-002","type":"snow_ice","road":"G65","section":"QINLING-01","severity":"medium","description":"降雪导致路面结冰"},
+  {"id":"INC-003","type":"landslide","road":"G5","section":"HANTAI-01","severity":"high","description":"连续降雨导致边坡落石"},
+  {"id":"INC-004","type":"flooding","road":"G30","section":"BAOJI-01","severity":"medium","description":"低洼路段积水"},
+  {"id":"INC-005","type":"collision","road":"G5","section":"HANTAI-01","severity":"low","description":"轻微追尾占用应急车道"},
+  {"id":"INC-006","type":"tunnel_smoke","road":"G65","section":"QINLING-01","severity":"critical","description":"隧道监测到烟雾"},
+  {"id":"INC-007","type":"collision","road":"G30","section":"XIAN-01","severity":"medium","description":"货车侧翻占用一条车道"},
+  {"id":"INC-008","type":"snow_ice","road":"G5","section":"NINGQIANG-01","severity":"high","description":"桥面结冰车辆缓行"},
+  {"id":"INC-009","type":"landslide","road":"G65","section":"ANKANG-01","severity":"high","description":"边坡滑塌阻断道路"},
+  {"id":"INC-010","type":"flooding","road":"G70","section":"SHANGLUO-01","severity":"medium","description":"强降雨造成积水"},
+  {"id":"INC-011","type":"collision","road":"G40","section":"LANTIAN-01","severity":"medium","description":"三车追尾造成拥堵"},
+  {"id":"INC-012","type":"collision","road":"G30","section":"TONGGUAN-01","severity":"high","description":"危险品车辆故障"},
+  {"id":"INC-013","type":"snow_ice","road":"G70","section":"SHANGLUO-01","severity":"medium","description":"降雪能见度下降"},
+  {"id":"INC-014","type":"tunnel_smoke","road":"G5","section":"QIPANSHAN-01","severity":"critical","description":"隧道车辆起火告警"},
+  {"id":"INC-015","type":"landslide","road":"G85","section":"HANZHONG-01","severity":"high","description":"落石占用两条车道"},
+  {"id":"INC-016","type":"collision","road":"G65","section":"YANAN-01","severity":"low","description":"车辆故障停在路肩"},
+  {"id":"INC-017","type":"flooding","road":"G30","section":"XIAN-01","severity":"low","description":"收费站匝道轻度积水"},
+  {"id":"INC-018","type":"snow_ice","road":"G65","section":"YULIN-01","severity":"high","description":"暴雪导致通行能力下降"},
+  {"id":"INC-019","type":"collision","road":"G70","section":"SHANGLUO-01","severity":"medium","description":"客车故障造成缓行"},
+  {"id":"INC-020","type":"landslide","road":"G5","section":"HANTAI-01","severity":"medium","description":"零星落石需巡查"}
+]
+

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: highway-agent-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: highway-agent-api
+  template:
+    metadata:
+      labels:
+        app: highway-agent-api
+    spec:
+      # 课程使用 Alembic 的幂等 upgrade；生产可替换为独立发布 Job。
+      initContainers:
+        - name: migrate
+          image: shaanxi-highway-agent-api:0.12.0
+          command: ["alembic", "upgrade", "head"]
+          envFrom:
+            - configMapRef:
+                name: highway-agent-config
+            - secretRef:
+                name: highway-agent-secrets
+      containers:
+        - name: api
+          image: shaanxi-highway-agent-api:0.12.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: highway-agent-config
+            - secretRef:
+                name: highway-agent-secrets
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 192Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi

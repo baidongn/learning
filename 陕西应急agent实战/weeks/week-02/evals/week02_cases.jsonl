@@ -1,0 +1,5 @@
+{"id":"tunnel-smoke","input":"秦岭隧道追尾并出现烟雾","expected_status":"ready","expected_document":"PLAN-TUNNEL-001"}
+{"id":"snow-ice","input":"高速公路降雪结冰车辆缓行","expected_status":"ready","expected_document":"PLAN-SNOW-001"}
+{"id":"landslide","input":"连续降雨造成边坡滑坡落石","expected_status":"ready","expected_document":"PLAN-LANDSLIDE-001"}
+{"id":"unsupported-food","input":"服务区餐饮价格投诉","expected_status":"insufficient_evidence"}
+

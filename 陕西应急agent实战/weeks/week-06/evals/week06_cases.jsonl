@@ -1,0 +1,2 @@
+{"case_id":"RES-001","required_types":["ambulance","tow_truck"],"expected_status":"ready"}
+{"case_id":"RES-002","required_types":["helicopter"],"expected_status":"partial","expected_unmet":["helicopter"]}

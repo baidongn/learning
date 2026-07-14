@@ -1,0 +1,3 @@
+{"case_id":"MCP-001","server":"road","tool":"query_road_status","expected_success":true}
+{"case_id":"MCP-002","server":"weather","tool":"query_weather_warning","expected_success":true}
+{"case_id":"MCP-003","server":"resource","tool":"estimate_route","expected_success":true}

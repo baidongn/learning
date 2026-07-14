@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.1-pg17
+    environment:
+      POSTGRES_DB: highway_agent
+      POSTGRES_USER: highway
+      POSTGRES_PASSWORD: highway
+    ports:
+      - "5432:5432"
+    volumes:
+      - highway_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U highway -d highway_agent"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  redis:
+    image: redis:7.4.2-alpine
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - highway_redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  highway_pgdata:
+  highway_redisdata:
+

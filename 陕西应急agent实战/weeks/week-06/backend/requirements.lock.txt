@@ -1,0 +1,18 @@
+# 课程验证环境的直接依赖版本；中文注释说明用途，包名保持官方英文。
+alembic==1.18.5
+asyncpg==0.31.0
+fastapi==0.139.0
+httpx==0.28.1
+langgraph==1.2.9
+langgraph-checkpoint-postgres==3.1.0
+psycopg[binary]==3.3.4
+pgvector==0.5.0
+pydantic-settings==2.14.2
+SQLAlchemy==2.0.51
+uvicorn==0.51.0
+
+# 开发与评测
+pytest==8.4.2
+pytest-asyncio==1.4.0
+pytest-cov==7.1.0
+PyYAML==6.0.3

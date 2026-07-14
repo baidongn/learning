@@ -1,0 +1,18 @@
+name: shaanxi-highway-emergency-agent-course
+language: zh-CN
+model_provider: deepseek
+default_model_mode: mock
+weeks:
+  - {week: 1, path: weeks/week-01, topic: "领域模型与模拟 API"}
+  - {week: 2, path: weeks/week-02, topic: "RAG 与预案专家 Agent"}
+  - {week: 3, path: weeks/week-03, topic: "Tool 与事件研判 Agent"}
+  - {week: 4, path: weeks/week-04, topic: "双 Agent LangGraph"}
+  - {week: 5, path: weeks/week-05, topic: "Checkpoint 与人工审批"}
+  - {week: 6, path: weeks/week-06, topic: "资源调度 Agent"}
+  - {week: 7, path: weeks/week-07, topic: "MCP 工具服务"}
+  - {week: 8, path: weeks/week-08, topic: "安全复核 Agent"}
+  - {week: 9, path: weeks/week-09, topic: "Supervisor Agent"}
+  - {week: 10, path: weeks/week-10, topic: "Vue 轻量指挥台"}
+  - {week: 11, path: weeks/week-11, topic: "评测与可靠性"}
+  - {week: 12, path: weeks/week-12, topic: "部署与求职交付"}
+

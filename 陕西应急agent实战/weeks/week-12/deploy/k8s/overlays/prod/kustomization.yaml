@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: highway-agent
+resources:
+  - ../../base
+  - migration-job.yaml
+patches:
+  - path: prod-patch.yaml
+  - path: web-patch.yaml
+  - path: config-patch.yaml
+  # 生产只允许独立 Job 执行一次迁移，禁止三个 API Pod 并发执行 DDL。
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: highway-agent-api
+    patch: |-
+      - op: remove
+        path: /spec/template/spec/initContainers
+images:
+  - name: shaanxi-highway-agent-api
+    newName: ghcr.io/your-name/shaanxi-highway-agent-api
+    newTag: 0.12.0
+  - name: shaanxi-highway-agent-web
+    newName: ghcr.io/your-name/shaanxi-highway-agent-web
+    newTag: 0.12.0
+secretGenerator:
+  - name: highway-agent-secrets
+    behavior: replace
+    literals:
+      - DATABASE_URL=postgresql+asyncpg://app:change-me@external-postgres.example:5432/highway_agent
+      - REDIS_URL=redis://external-redis.example:6379/0
+      - DEEPSEEK_API_KEY=replace-before-deploy
+generatorOptions:
+  disableNameSuffixHash: true

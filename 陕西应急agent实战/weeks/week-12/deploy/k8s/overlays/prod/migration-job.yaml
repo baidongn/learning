@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: highway-agent-migrate
+spec:
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        app: highway-agent-migrate
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: shaanxi-highway-agent-api:0.12.0
+          command: ["alembic", "upgrade", "head"]
+          envFrom:
+            - configMapRef:
+                name: highway-agent-config
+            - secretRef:
+                name: highway-agent-secrets

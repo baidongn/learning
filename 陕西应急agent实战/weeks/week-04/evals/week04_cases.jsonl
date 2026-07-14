@@ -1,0 +1,2 @@
+{"case_id":"WF-001","input":"秦岭隧道追尾出现烟雾，2人受伤，占用2车道","expected_status":"plan_ready"}
+{"case_id":"WF-002","input":"秦岭隧道发生追尾","expected_status":"needs_input"}

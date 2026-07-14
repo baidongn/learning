@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="560" viewBox="0 0 1120 560">
+  <rect width="1120" height="560" fill="#07121d"/>
+  <rect x="42" y="42" width="1036" height="476" rx="14" fill="#0c1b29" stroke="#294355"/>
+  <circle cx="76" cy="78" r="7" fill="#ff6d67"/>
+  <circle cx="100" cy="78" r="7" fill="#f3b34c"/>
+  <circle cx="124" cy="78" r="7" fill="#37d3cb"/>
+  <text x="560" y="84" fill="#8fa5b8" font-size="16" text-anchor="middle" font-family="Menlo, monospace">WEEK 02 · EXPECTED OUTPUT</text>
+  <line x1="42" y1="108" x2="1078" y2="108" stroke="#294355"/>
+  <text x="78" y="154" fill="#37d3cb" font-size="19" font-family="Menlo, 'Noto Sans SC', monospace">$ make verify</text>
+  <text x="78" y="212" fill="#eaf0f6" font-size="25" font-family="Menlo, 'Noto Sans SC', monospace">✓ backend tests passed</text>
+  <text x="78" y="270" fill="#b7c8d4" font-size="22" font-family="Menlo, 'Noto Sans SC', monospace">  plan.status: ready</text>
+  <text x="78" y="322" fill="#b7c8d4" font-size="22" font-family="Menlo, 'Noto Sans SC', monospace">  citations: PLAN-TUNNEL-001</text>
+  <rect x="78" y="376" width="964" height="88" rx="6" fill="#102738" stroke="#1d4855"/>
+  <text x="104" y="412" fill="#37d3cb" font-size="15" font-family="'Noto Sans SC', sans-serif">课程合成数据 · MODEL_MODE=mock</text>
+  <text x="104" y="442" fill="#728b9e" font-size="14" font-family="'Noto Sans SC', sans-serif">预期截图：实际时间、trace_id 与端口可能不同，业务状态应一致。</text>
+</svg>

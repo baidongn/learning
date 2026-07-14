@@ -1,0 +1,3 @@
+{"case_id":"SUP-001","scenario":"critical_tunnel_smoke","expected_status":"awaiting_approval","expected_actions":[]}
+{"case_id":"SUP-002","scenario":"transient_failure","expected_retries":1}
+{"case_id":"SUP-003","scenario":"step_limit","expected_status":"step_limit"}
