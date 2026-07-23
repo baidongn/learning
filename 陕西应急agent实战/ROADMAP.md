@@ -1,18 +1,26 @@
 # 12 周渐进路线
 
-| 周 | 只增加这一层 | Agent 数量 |
-|---|---|---:|
-| 1 | PostgreSQL、pgvector、领域模型、模拟 API | 0 |
-| 2 | RAG、预案专家、DeepSeek Live 适配 | 1 |
-| 3 | HTTP Tool、事件研判 Agent | 2 |
-| 4 | 固定双 Agent LangGraph 工作流 | 2 |
-| 5 | Checkpoint、工作记忆、人工审批 | 2 |
-| 6 | 资源调度 Agent | 3 |
-| 7 | MCP 协议适配，不新增 Agent | 3 |
-| 8 | 安全复核 Agent | 4 |
-| 9 | 有界 Supervisor Agent | 5 |
-| 10 | Vue 轻量指挥台 | 5 |
-| 11 | 20 场景评测、熔断、Prometheus | 5 |
-| 12 | Docker、Kustomize、CI、求职包装 | 5 |
+学习强度：每周 5 天，每天 2～3 小时，每周约 10～15 小时；全课程约 120～180 小时。
 
-通关原则：每个专业 Agent 必须先独立运行、测试和评测，再被工作流或 Supervisor 调用；Supervisor 最后开发。
+| 周 | 本周只增加这一层 | Agent 数量 | 建议时长 | 本周可演示成果 |
+|---|---|---:|---:|---|
+| 1 | PostgreSQL、pgvector、领域模型、模拟 API | 0 | 10～15h | 数据库迁移与确定性高速模拟接口 |
+| 2 | RAG、预案专家、DeepSeek Live 适配 | 1 | 10～15h | 带引用的预案检索与 Mock/Live 双模式 |
+| 3 | HTTP Tool、事件研判 Agent | 2 | 10～15h | 自动查询路况、天气、摄像头并结构化研判 |
+| 4 | 固定双 Agent LangGraph 工作流 | 2 | 10～15h | 事件研判与预案建议的有向工作流 |
+| 5 | Checkpoint、工作记忆、人工审批 | 2 | 10～15h | 线程状态、暂停、审批、编辑与拒绝 |
+| 6 | 资源调度 Agent | 3 | 10～15h | 资源查询、ETA、缺口与幂等建议 |
+| 7 | MCP 协议适配，不新增 Agent | 3 | 10～15h | 三个 MCP Server 和五个可调用 Tool |
+| 8 | 安全复核 Agent | 4 | 10～15h | PASS/REVISE/BLOCK 与提示注入防护 |
+| 9 | 有界 Supervisor Agent | 5 | 10～15h | 五 Agent 有限步骤编排和停止条件 |
+| 10 | Vue 轻量指挥台 | 5 | 10～15h | 事件表单、结果卡片和 Agent Trace |
+| 11 | 20 场景评测、熔断、Prometheus | 5 | 10～15h | 量化门禁、Tool 降级和运行指标 |
+| 12 | Docker、Kustomize、CI、求职包装 | 5 | 10～15h | Compose 一键演示与 dev/prod 部署清单 |
+
+推进原则：
+
+1. 每个专业 Agent 必须先独立运行、测试和评测，再接入工作流。
+2. Supervisor 最后开发，避免一开始进入最复杂编排。
+3. 每周使用上一周完整正式代码，只增加一层新能力。
+4. Day 1～4 逐步开发，Day 5 统一回归、评测和演示。
+5. 必做全部通过后再做选做，不通过时不跳周。

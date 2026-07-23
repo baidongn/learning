@@ -20,6 +20,8 @@ jobs:
         run: |
           bash scripts/verify_structure.sh
           bash scripts/test_all_weeks.sh
+      - name: 验证手把手课程质量
+        run: bash scripts/verify_course_quality.sh
       - name: 执行真实 Supervisor 场景评测
         run: |
           cd weeks/week-12

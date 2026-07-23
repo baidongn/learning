@@ -1,9 +1,12 @@
 PYTHON ?= .venv/bin/python
 
-.PHONY: verify-structure test-all eval-final verify-deploy verify
+.PHONY: verify-structure verify-course test-all eval-final verify-deploy verify
 
 verify-structure:
 	bash scripts/verify_structure.sh
+
+verify-course:
+	bash scripts/verify_course_quality.sh
 
 test-all:
 	bash scripts/test_all_weeks.sh
@@ -15,4 +18,4 @@ verify-deploy:
 	kubectl kustomize weeks/week-12/deploy/k8s/overlays/dev >/dev/null
 	kubectl kustomize weeks/week-12/deploy/k8s/overlays/prod >/dev/null
 
-verify: verify-structure test-all eval-final verify-deploy
+verify: verify-structure verify-course test-all eval-final verify-deploy
